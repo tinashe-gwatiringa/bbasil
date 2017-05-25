@@ -14,7 +14,6 @@ LCD_D7 = PA15
 
 enum TypeOfCharacter {COMMAND = 0, TEXT = 1};
 
-static void delay (uint32_t microseconds);
 static void pulse_strobe (void);
 static void lcd_put (char character, enum TypeOfCharacter ch_type);
 
@@ -138,7 +137,7 @@ static void lcd_put (char character, enum TypeOfCharacter ch_type)
 //============================================================================
 
 
-static void delay(uint32_t microseconds)
+void delay(uint32_t microseconds)
 {
 	/* Hangs for specified number of microseconds. */
 	volatile uint32_t counter = 0;
