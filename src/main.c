@@ -12,12 +12,14 @@
 #include "adc_stm32f0.h"
 #include "lcd_stm32f0.h"
 #include "led_stm32f0.h"
+#include "tim_stm32f0.h"
 
 #include <stdint.h>
 
 //macros
 
 //global variables
+uint8_t bitpattern = 0xAA;
 
 //function declarations
 
@@ -34,15 +36,23 @@ void main (void)
 
 	//init adc's
 	adc_init(GPIOA, 5, 5);
-
-	while(1)
+  //init timer
+  init_TIM14(2);
+	
+  while(1)
 	{
 		led_heartbeat(GPIOB, 0);
 		delay(1.5e6);
 
 		GPIOB->ODR = get_adc_sample();
+
 	}
 }										// End of main
 
-
-
+//interrupt handlers
+void TIM14_IRQHandler(void)
+{
+	bitpattern = ~bitpattern;
+	GPIOB->ODR = bitpattern;
+	TIM14->SR &= ~TIM_SR_UIF;
+}

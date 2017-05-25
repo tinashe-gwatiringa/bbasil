@@ -9,7 +9,8 @@ C_SRCS += \
 ../src/gpio_stm32f0.c \
 ../src/lcd_stm32f0.c \
 ../src/led_stm32f0.c \
-../src/main.c 
+../src/main.c \
+../src/tim_stm32f0.c 
 
 OBJS += \
 ./src/_write.o \
@@ -17,7 +18,8 @@ OBJS += \
 ./src/gpio_stm32f0.o \
 ./src/lcd_stm32f0.o \
 ./src/led_stm32f0.o \
-./src/main.o 
+./src/main.o \
+./src/tim_stm32f0.o 
 
 C_DEPS += \
 ./src/_write.d \
@@ -25,7 +27,8 @@ C_DEPS += \
 ./src/gpio_stm32f0.d \
 ./src/lcd_stm32f0.d \
 ./src/led_stm32f0.d \
-./src/main.d 
+./src/main.d \
+./src/tim_stm32f0.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
