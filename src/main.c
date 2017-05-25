@@ -28,7 +28,7 @@ void main (void)
 	lcd_init();							// Initialise lcd
 	lcd_string("bbasil");				// Display string on line 1
 	lcd_command(LCD_GOTO_LINE_2);		// Move cursor to line 2
-	lcd_string("v0.0.1");				// Display string on line 2
+	lcd_string("v0.1.0");				// Display string on line 2
 
 	//init led's
 	uint16_t pins[8] = {0, 1, 2, 3, 4, 5, 6, 7};
