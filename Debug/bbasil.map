@@ -1196,7 +1196,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./src/main.o
  .data          0x0000000000000000        0x0 ./src/main.o
  .bss           0x0000000000000000        0x0 ./src/main.o
- .text.delay    0x0000000000000000       0x2c ./src/main.o
  .debug_macro   0x0000000000000000      0x83e ./src/main.o
  .debug_macro   0x0000000000000000      0x34e ./src/main.o
  .debug_macro   0x0000000000000000       0x7a ./src/main.o
@@ -1398,10 +1397,10 @@ END GROUP
 
 .inits          0x0000000008000218       0x28
                 0x0000000008000218                __data_regions_array_start = .
-                0x0000000008000218        0x4 LONG 0x80008c4 LOADADDR (.data)
+                0x0000000008000218        0x4 LONG 0x8000924 LOADADDR (.data)
                 0x000000000800021c        0x4 LONG 0x20000000 ADDR (.data)
                 0x0000000008000220        0x4 LONG 0x20000024 (ADDR (.data) + SIZEOF (.data))
-                0x0000000008000224        0x4 LONG 0x80008c4 LOADADDR (.data_CCMRAM)
+                0x0000000008000224        0x4 LONG 0x8000924 LOADADDR (.data_CCMRAM)
                 0x0000000008000228        0x4 LONG 0x0 ADDR (.data_CCMRAM)
                 0x000000000800022c        0x4 LONG 0x0 (ADDR (.data_CCMRAM) + SIZEOF (.data_CCMRAM))
                 0x0000000008000230                __data_regions_array_end = .
@@ -1433,7 +1432,7 @@ END GROUP
 .flashtext
  *(.flashtext .flashtext.*)
 
-.text           0x0000000008000240      0x684
+.text           0x0000000008000240      0x6e4
  *(.text .text.*)
  .text._exit    0x0000000008000240        0x4 ./system/src/newlib/_exit.o
                 0x0000000008000240                _exit
@@ -1461,6 +1460,7 @@ END GROUP
                 0x0000000008000454       0x50 ./src/gpio_stm32f0.o
                 0x0000000008000454                set_mode
  .text.delay    0x00000000080004a4       0x20 ./src/lcd_stm32f0.o
+                0x00000000080004a4                delay
  .text.pulse_strobe
                 0x00000000080004c4       0x30 ./src/lcd_stm32f0.o
  .text.lcd_put  0x00000000080004f4      0x138 ./src/lcd_stm32f0.o
@@ -1477,64 +1477,67 @@ END GROUP
                 0x00000000080006fc       0x18 ./src/led_stm32f0.o
                 0x00000000080006fc                led_init
  .text.led_init_multi
-                0x0000000008000714       0x1c ./src/led_stm32f0.o
+                0x0000000008000714       0x20 ./src/led_stm32f0.o
                 0x0000000008000714                led_init_multi
- .text.main     0x0000000008000730       0x48 ./src/main.o
-                0x0000000008000730                main
- .text          0x0000000008000778      0x120 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
-                0x0000000008000778                __udivsi3
-                0x0000000008000778                __aeabi_uidiv
-                0x0000000008000884                __aeabi_uidivmod
- .text          0x0000000008000898        0x4 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
-                0x0000000008000898                __aeabi_ldiv0
-                0x0000000008000898                __aeabi_idiv0
- .text.memcpy   0x000000000800089c       0x12 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
-                0x000000000800089c                memcpy
+ .text.led_heartbeat
+                0x0000000008000734       0x4c ./src/led_stm32f0.o
+                0x0000000008000734                led_heartbeat
+ .text.main     0x0000000008000780       0x54 ./src/main.o
+                0x0000000008000780                main
+ .text          0x00000000080007d4      0x120 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+                0x00000000080007d4                __udivsi3
+                0x00000000080007d4                __aeabi_uidiv
+                0x00000000080008e0                __aeabi_uidivmod
+ .text          0x00000000080008f4        0x4 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000080008f4                __aeabi_ldiv0
+                0x00000000080008f4                __aeabi_idiv0
+ .text.memcpy   0x00000000080008f8       0x12 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+                0x00000000080008f8                memcpy
  *(.rodata .rodata.* .constdata .constdata.*)
- *fill*         0x00000000080008ae        0x2 
- .rodata        0x00000000080008b0        0x3 ./src/main.o
- *fill*         0x00000000080008b3        0x1 
+ *fill*         0x000000000800090a        0x2 
+ .rodata        0x000000000800090c        0x6 ./src/main.o
+ *fill*         0x0000000008000912        0x2 
  .rodata.str1.4
-                0x00000000080008b4       0x10 ./src/main.o
+                0x0000000008000914       0x10 ./src/main.o
                                           0xf (size before relaxing)
  *(vtable)
  *(.eh_frame*)
  *(.glue_7)
- .glue_7        0x00000000080008c4        0x0 linker stubs
+ .glue_7        0x0000000008000924        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x00000000080008c4        0x0 linker stubs
+ .glue_7t       0x0000000008000924        0x0 linker stubs
 
-.vfp11_veneer   0x00000000080008c4        0x0
- .vfp11_veneer  0x00000000080008c4        0x0 linker stubs
+.vfp11_veneer   0x0000000008000924        0x0
+ .vfp11_veneer  0x0000000008000924        0x0 linker stubs
 
-.v4_bx          0x00000000080008c4        0x0
- .v4_bx         0x00000000080008c4        0x0 linker stubs
+.v4_bx          0x0000000008000924        0x0
+ .v4_bx         0x0000000008000924        0x0 linker stubs
 
-.iplt           0x00000000080008c4        0x0
- .iplt          0x00000000080008c4        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+.iplt           0x0000000008000924        0x0
+ .iplt          0x0000000008000924        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
-.rel.dyn        0x00000000080008c4        0x0
- .rel.iplt      0x00000000080008c4        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
+.rel.dyn        0x0000000008000924        0x0
+ .rel.iplt      0x0000000008000924        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000080008c4                . = ALIGN (0x4)
-                0x00000000080008c4                __exidx_start = .
+                0x0000000008000924                . = ALIGN (0x4)
+                0x0000000008000924                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000080008c4                __exidx_end = .
-                0x00000000080008c4                . = ALIGN (0x4)
-                0x00000000080008c4                _etext = .
-                0x00000000080008c4                __etext = .
+                0x0000000008000924                __exidx_end = .
+                0x0000000008000924                . = ALIGN (0x4)
+                0x0000000008000924                _etext = .
+                0x0000000008000924                __etext = .
 
-.data_CCMRAM    0x0000000000000000        0x0 load address 0x00000000080008c4
+.data_CCMRAM    0x0000000000000000        0x0 load address 0x0000000008000924
  FILL mask 0xff
  *(.data.CCMRAM .data.CCMRAM.*)
                 0x0000000000000000                . = ALIGN (0x4)
-                0x00000000080008c4                _sidata = LOADADDR (.data)
+                0x0000000008000924                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0x24 load address 0x00000000080008c4
+.data           0x0000000020000000       0x24 load address 0x0000000008000924
  FILL mask 0xff
                 0x0000000020000000                _sdata = .
                 0x0000000020000000                __data_start__ = .
@@ -1555,7 +1558,7 @@ END GROUP
                 0x0000000020000024                _edata = .
                 0x0000000020000024                __data_end__ = .
 
-.igot.plt       0x0000000020000024        0x0 load address 0x00000000080008e8
+.igot.plt       0x0000000020000024        0x0 load address 0x0000000008000948
  .igot.plt      0x0000000020000024        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
 
 .bss_CCMRAM     0x0000000000000000        0x0
@@ -1718,9 +1721,9 @@ END GROUP
  .debug_aranges
                 0x0000000000000188       0x50 ./src/lcd_stm32f0.o
  .debug_aranges
-                0x00000000000001d8       0x28 ./src/led_stm32f0.o
+                0x00000000000001d8       0x30 ./src/led_stm32f0.o
  .debug_aranges
-                0x0000000000000200       0x28 ./src/main.o
+                0x0000000000000208       0x20 ./src/main.o
  .debug_aranges
                 0x0000000000000228       0x20 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
  .debug_aranges
@@ -1731,7 +1734,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x1dab
+.debug_info     0x0000000000000000     0x1e3d
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000       0xee ./system/src/newlib/_exit.o
  .debug_info    0x00000000000000ee      0x475 ./system/src/newlib/_startup.o
@@ -1742,13 +1745,13 @@ END GROUP
  .debug_info    0x0000000000000c8a       0xd1 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_info    0x0000000000000d5b      0x2d9 ./src/gpio_stm32f0.o
  .debug_info    0x0000000000001034      0x516 ./src/lcd_stm32f0.o
- .debug_info    0x000000000000154a      0x2a9 ./src/led_stm32f0.o
- .debug_info    0x00000000000017f3      0x344 ./src/main.o
- .debug_info    0x0000000000001b37       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
- .debug_info    0x0000000000001bf0       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
- .debug_info    0x0000000000001ca9      0x102 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_info    0x000000000000154a      0x326 ./src/led_stm32f0.o
+ .debug_info    0x0000000000001870      0x359 ./src/main.o
+ .debug_info    0x0000000000001bc9       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_info    0x0000000000001c82       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+ .debug_info    0x0000000000001d3b      0x102 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
-.debug_abbrev   0x0000000000000000      0xcb8
+.debug_abbrev   0x0000000000000000      0xca4
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000       0xb7 ./system/src/newlib/_exit.o
  .debug_abbrev  0x00000000000000b7      0x1e9 ./system/src/newlib/_startup.o
@@ -1760,12 +1763,12 @@ END GROUP
  .debug_abbrev  0x00000000000006d1      0x10b ./src/gpio_stm32f0.o
  .debug_abbrev  0x00000000000007dc      0x152 ./src/lcd_stm32f0.o
  .debug_abbrev  0x000000000000092e      0x14b ./src/led_stm32f0.o
- .debug_abbrev  0x0000000000000a79      0x173 ./src/main.o
- .debug_abbrev  0x0000000000000bec       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
- .debug_abbrev  0x0000000000000c00       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
- .debug_abbrev  0x0000000000000c14       0xa4 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_abbrev  0x0000000000000a79      0x15f ./src/main.o
+ .debug_abbrev  0x0000000000000bd8       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_abbrev  0x0000000000000bec       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+ .debug_abbrev  0x0000000000000c00       0xa4 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
-.debug_line     0x0000000000000000     0x230b
+.debug_line     0x0000000000000000     0x2314
  *(.debug_line)
  .debug_line    0x0000000000000000      0x1e9 ./system/src/newlib/_exit.o
  .debug_line    0x00000000000001e9      0x255 ./system/src/newlib/_startup.o
@@ -1776,13 +1779,13 @@ END GROUP
  .debug_line    0x000000000000129f       0xd4 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_line    0x0000000000001373      0x33e ./src/gpio_stm32f0.o
  .debug_line    0x00000000000016b1      0x3db ./src/lcd_stm32f0.o
- .debug_line    0x0000000000001a8c      0x354 ./src/led_stm32f0.o
- .debug_line    0x0000000000001de0      0x370 ./src/main.o
- .debug_line    0x0000000000002150       0x6c /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
- .debug_line    0x00000000000021bc       0x5e /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
- .debug_line    0x000000000000221a       0xf1 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_line    0x0000000000001a8c      0x37d ./src/led_stm32f0.o
+ .debug_line    0x0000000000001e09      0x350 ./src/main.o
+ .debug_line    0x0000000000002159       0x6c /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_line    0x00000000000021c5       0x5e /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+ .debug_line    0x0000000000002223       0xf1 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
-.debug_frame    0x0000000000000000      0x408
+.debug_frame    0x0000000000000000      0x410
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0x38 ./system/src/newlib/_exit.o
  .debug_frame   0x0000000000000038       0x80 ./system/src/newlib/_startup.o
@@ -1793,12 +1796,12 @@ END GROUP
  .debug_frame   0x0000000000000224       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_frame   0x0000000000000244       0x30 ./src/gpio_stm32f0.o
  .debug_frame   0x0000000000000274       0xc0 ./src/lcd_stm32f0.o
- .debug_frame   0x0000000000000334       0x4c ./src/led_stm32f0.o
- .debug_frame   0x0000000000000380       0x40 ./src/main.o
- .debug_frame   0x00000000000003c0       0x20 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
- .debug_frame   0x00000000000003e0       0x28 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_frame   0x0000000000000334       0x6c ./src/led_stm32f0.o
+ .debug_frame   0x00000000000003a0       0x28 ./src/main.o
+ .debug_frame   0x00000000000003c8       0x20 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000000000003e8       0x28 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
-.debug_str      0x0000000000000000    0x4f09b
+.debug_str      0x0000000000000000    0x4f0a2
  *(.debug_str)
  .debug_str     0x0000000000000000     0x5cdf ./system/src/newlib/_exit.o
                                        0x5e49 (size before relaxing)
@@ -1818,23 +1821,22 @@ END GROUP
                                       0x49a94 (size before relaxing)
  .debug_str     0x000000000004ed7d      0x16e ./src/lcd_stm32f0.o
                                       0x49ba1 (size before relaxing)
- .debug_str     0x000000000004eeeb       0x47 ./src/led_stm32f0.o
-                                      0x49a6d (size before relaxing)
- .debug_str     0x000000000004ef32       0x21 ./src/main.o
-                                      0x49b06 (size before relaxing)
- .debug_str     0x000000000004ef53      0x148 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_str     0x000000000004eeeb       0x55 ./src/led_stm32f0.o
+                                      0x49a90 (size before relaxing)
+ .debug_str     0x000000000004ef40       0x1a ./src/main.o
+                                      0x49b07 (size before relaxing)
+ .debug_str     0x000000000004ef5a      0x148 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
                                         0x1e8 (size before relaxing)
 
-.debug_loc      0x0000000000000000      0x7a7
+.debug_loc      0x0000000000000000      0x7cb
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x265 ./system/src/newlib/_startup.o
  .debug_loc     0x0000000000000265       0x63 ./system/src/newlib/_syscalls.o
  .debug_loc     0x00000000000002c8       0xe2 ./system/src/cmsis/system_stm32f0xx.o
  .debug_loc     0x00000000000003aa       0xd8 ./src/gpio_stm32f0.o
  .debug_loc     0x0000000000000482      0x148 ./src/lcd_stm32f0.o
- .debug_loc     0x00000000000005ca       0xe5 ./src/led_stm32f0.o
- .debug_loc     0x00000000000006af       0x29 ./src/main.o
- .debug_loc     0x00000000000006d8       0xcf /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_loc     0x00000000000005ca      0x132 ./src/led_stm32f0.o
+ .debug_loc     0x00000000000006fc       0xcf /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1852,7 +1854,7 @@ END GROUP
  *(.debug_varnames)
 OUTPUT(bbasil.elf elf32-littlearm)
 
-.debug_ranges   0x0000000000000000      0x1b8
+.debug_ranges   0x0000000000000000      0x1a0
  .debug_ranges  0x0000000000000000       0x18 ./system/src/newlib/_exit.o
  .debug_ranges  0x0000000000000018       0x48 ./system/src/newlib/_startup.o
  .debug_ranges  0x0000000000000060       0x20 ./system/src/newlib/_syscalls.o
@@ -1862,11 +1864,11 @@ OUTPUT(bbasil.elf elf32-littlearm)
  .debug_ranges  0x00000000000000f8       0x10 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_ranges  0x0000000000000108       0x18 ./src/gpio_stm32f0.o
  .debug_ranges  0x0000000000000120       0x40 ./src/lcd_stm32f0.o
- .debug_ranges  0x0000000000000160       0x18 ./src/led_stm32f0.o
- .debug_ranges  0x0000000000000178       0x30 ./src/main.o
- .debug_ranges  0x00000000000001a8       0x10 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
+ .debug_ranges  0x0000000000000160       0x20 ./src/led_stm32f0.o
+ .debug_ranges  0x0000000000000180       0x10 ./src/main.o
+ .debug_ranges  0x0000000000000190       0x10 /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-memcpy.o)
 
-.debug_macro    0x0000000000000000     0x1ae9
+.debug_macro    0x0000000000000000     0x1af3
  .debug_macro   0x0000000000000000      0x131 ./system/src/newlib/_exit.o
  .debug_macro   0x0000000000000131       0x9c ./system/src/newlib/_exit.o
  .debug_macro   0x00000000000001cd      0x10e ./system/src/newlib/_exit.o
@@ -1901,5 +1903,5 @@ OUTPUT(bbasil.elf elf32-littlearm)
  .debug_macro   0x000000000000151b       0x34 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_macro   0x000000000000154f      0x15f ./src/gpio_stm32f0.o
  .debug_macro   0x00000000000016ae      0x15f ./src/lcd_stm32f0.o
- .debug_macro   0x000000000000180d      0x169 ./src/led_stm32f0.o
- .debug_macro   0x0000000000001976      0x173 ./src/main.o
+ .debug_macro   0x000000000000180d      0x173 ./src/led_stm32f0.o
+ .debug_macro   0x0000000000001980      0x173 ./src/main.o

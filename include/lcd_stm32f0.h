@@ -17,8 +17,10 @@ enum LcdCommand
 };
 
 void lcd_init(void);
-void lcd_command (enum LcdCommand command);
+void lcd_command(enum LcdCommand command);
 void lcd_string(char* string_to_print);
 void lcd_two_line_write(char* line1, char* line2);
+
+void delay(uint32_t microseconds);
 
 #endif
