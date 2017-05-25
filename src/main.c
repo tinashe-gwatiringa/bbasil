@@ -35,16 +35,13 @@ void main (void)
 	led_init_multi(GPIOB, pins, 8);
 
 	//init adc's
-	adc_init(GPIOA, 5, 5);
-  //init timer
-  init_TIM14(2);
+	adc_init(GPIOA, 5);
+
+	//init timer
+	init_TIM14(2);
 	
   while(1)
 	{
-		led_heartbeat(GPIOB, 0);
-		delay(1.5e6);
-
-		GPIOB->ODR = get_adc_sample();
 
 	}
 }										// End of main
@@ -52,7 +49,7 @@ void main (void)
 //interrupt handlers
 void TIM14_IRQHandler(void)
 {
-	bitpattern = ~bitpattern;
-	GPIOB->ODR = bitpattern;
+	led_heartbeat(GPIOB, 0);
+	GPIOB->ODR = get_adc_sample(5);
 	TIM14->SR &= ~TIM_SR_UIF;
 }
