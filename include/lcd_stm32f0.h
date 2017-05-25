@@ -1,4 +1,4 @@
-#ifndef LCD_STM32F0_H_
+#ifndef LCD_STM32F0_H
 #define LCD_STM32F0_H
 
 #include <stdint.h>
