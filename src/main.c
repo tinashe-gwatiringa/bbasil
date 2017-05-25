@@ -9,6 +9,7 @@
 //includes
 #include "lcd_stm32f0.h"
 #include "led_stm32f0.h"
+#include "tim_stm32f0.h"
 #include "stm32f0xx.h"
 
 #include <stdint.h>
@@ -19,8 +20,6 @@
 uint8_t bitpattern = 0xAA;
 
 //function declarations
-void init_TIM14(uint32_t delay);
-void init_NVIC(void);
 
 void main (void)
 {
@@ -33,7 +32,6 @@ void main (void)
 	uint16_t pins[3] = {0, 1, 2};
 	led_init_multi(GPIOB, pins, 3);
 	init_TIM14(2);
-	init_NVIC();
 
 	while(1)
 	{
@@ -42,25 +40,7 @@ void main (void)
 	}
 }										// End of main
 
-
-//function calls
-void init_TIM14(uint32_t delay)
-{
-	uint32_t psc = delay*735;
-	uint32_t arr = 48e6/psc;
-	RCC->APB1ENR |= RCC_APB1ENR_TIM14EN;
-	TIM14->PSC = psc; //734;
-	TIM14->ARR = arr; //65306;
-	TIM14->DIER |= TIM_DIER_UIE;
-	TIM14->CR1 |= TIM_CR1_CEN;
-}
-
-void init_NVIC(void)
-{
-	NVIC_EnableIRQ(TIM14_IRQn);
-}
-
-//interrupt service requests
+//interrupt handlers
 void TIM14_IRQHandler(void)
 {
 	bitpattern = ~bitpattern;
