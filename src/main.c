@@ -33,18 +33,14 @@ void main (void)
 	led_init_multi(GPIOB, pins, 8);
 
 	//init adc's
-	adc_init(GPIOA, 5);
+	adc_init(GPIOA, 5, 5);
 
 	while(1)
 	{
-		//led_heartbeat(GPIOB, 0);
-		//delay(1.5e6);
+		led_heartbeat(GPIOB, 0);
+		delay(1.5e6);
 
-		ADC1->CR |= ADC_CR_ADSTART;
-
-		while((ADC1->ISR & ADC_ISR_EOC) == 0);
-
-		GPIOB->ODR = ADC1->DR;
+		GPIOB->ODR = get_adc_sample();
 	}
 }										// End of main
 
