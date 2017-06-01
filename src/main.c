@@ -23,7 +23,7 @@ void main (void)
 	
 	while(1)
 	{
-
+		status_update();
 	}
 }
 
