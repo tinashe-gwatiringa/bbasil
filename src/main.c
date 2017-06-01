@@ -40,7 +40,7 @@ void main (void)
 	//init timer
 	init_TIM14(2);
 	
-  while(1)
+	while(1)
 	{
 
 	}
