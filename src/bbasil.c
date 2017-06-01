@@ -15,9 +15,14 @@ void init(void)
 	//init lcd
 	lcd_init();
 
+	//init buttons
+	uint16_t buttons[4] = {0, 1, 2, 3};
+	button_init_multi(GPIOA, buttons, 4);
+	button_config_interrupt();
+
 	//init led's
-	uint16_t pins[8] = {0, 1, 2, 3, 4, 5, 6, 7};
-	led_init_multi(GPIOB, pins, 8);
+	uint16_t leds[8] = {0, 1, 2, 3, 4, 5, 6, 7};
+	led_init_multi(GPIOB, leds, 8);
 
 	//init adc's
 	adc_init(GPIOA, 7); //B11
@@ -74,4 +79,11 @@ void TIM14_IRQHandler(void)
 
 	//ack interrupt
 	TIM14->SR &= ~TIM_SR_UIF;
+}
+
+
+void EXTI0_1_IRQHandler(void)
+{
+	GPIOB->ODR = (uint8_t)(((float)sunlight/SUN_PER_DAY)*8);
+	EXTI->PR |= EXTI_PR_PR1;
 }
