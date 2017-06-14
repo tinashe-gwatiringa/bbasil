@@ -35,3 +35,17 @@ void set_mode(GPIO_TypeDef *port, uint16_t pin, uint8_t mode)
 			break;
 	}
 }
+
+
+void set_pull(GPIO_TypeDef *port, uint16_t pin, uint8_t pull)
+{
+	switch (pull)
+	{
+		case UP:
+			port->PUPDR |= GPIO_PUPDR_PUPDR0_0 << 2*pin;
+			break;
+		case DOWN:
+			port->MODER |= (GPIO_MODER_MODER0_1 << 2*pin);
+			break;
+	}
+}
