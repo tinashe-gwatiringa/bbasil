@@ -11,8 +11,8 @@
 #define PROG_BAR_SIZE 	14
 #define DIRECT_SUN 		64
 #define SUN_PER_DAY 	(4*60*60)
-#define MAX_WATER_LEVEL 5
-#define WATER_PERIOD	1
+#define MAX_WATER_LEVEL 1440
+#define WATER_PERIOD	60
 
 void splash(void);
 void init(void);
@@ -21,6 +21,5 @@ char* getProgressBar(float percentage);
 
 uint8_t is_enough_sun(uint8_t adc_value);
 void check_water(void);
-
 
 #endif

@@ -3,14 +3,13 @@
 char progress_bar[PROG_BAR_SIZE];
 uint16_t sunlight;
 uint16_t g_water_level = MAX_WATER_LEVEL;
-uint8_t gb_water_me = 0;
+uint8_t  gb_water_me   = 0;
 
 void splash(void)
 {
 	lcd_two_line_write("bbasil", "v0.1.2");
 	delay(1e6);
 }
-
 
 void init(void)
 {
@@ -39,7 +38,6 @@ void init(void)
 	sunlight = 0;
 }
 
-
 char* getProgressBar(float percentage)
 {
 	uint8_t progress = (uint8_t)(PROG_BAR_SIZE*percentage);
@@ -55,13 +53,11 @@ char* getProgressBar(float percentage)
 	return progress_bar;
 }
 
-
 void status_update()
 {
 	lcd_two_line_write("SUNLIGHT", getProgressBar((float)(sunlight)/SUN_PER_DAY));
 	delay(1e6);
 }
-
 
 uint8_t is_enough_sun(uint8_t adc_value)
 {
@@ -105,7 +101,6 @@ void TIM14_IRQHandler(void)
 	//ack interrupt
 	TIM14->SR &= ~TIM_SR_UIF;
 }
-
 
 void EXTI0_1_IRQHandler(void)
 {
