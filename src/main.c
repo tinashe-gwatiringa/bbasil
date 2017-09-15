@@ -20,10 +20,9 @@ void main (void)
 {
 	init();
 	splash();
-	
 	while(1)
 	{
 		status_update();
+		check_water();
 	}
 }
-
