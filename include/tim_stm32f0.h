@@ -6,5 +6,7 @@
 #define BUS_FREQ 48e6
 
 void tim_init(uint32_t period);
+void init_TIM2(uint32_t period);
+void init_TIM14(uint32_t period);
 
 #endif

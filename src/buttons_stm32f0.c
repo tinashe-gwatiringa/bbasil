@@ -26,12 +26,16 @@ void button_config_interrupt(void)
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGCOMPEN;
 
 	//map interrupts to SW1
+	SYSCFG->EXTICR[1] |= SYSCFG_EXTICR1_EXTI0_PA;
 	SYSCFG->EXTICR[1] |= SYSCFG_EXTICR1_EXTI1_PA;
 
 	//falling edge
 	EXTI->FTSR |= EXTI_FTSR_TR0;
+	EXTI->FTSR |= EXTI_FTSR_TR1;
 
 	//unmask interrupt
 	EXTI->IMR |= EXTI_IMR_MR0;
+	EXTI->IMR |= EXTI_IMR_MR1;
+
 }
 

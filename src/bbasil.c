@@ -2,6 +2,8 @@
 
 char progress_bar[PROG_BAR_SIZE];
 uint16_t sunlight;
+uint16_t g_water_level = MAX_WATER_LEVEL;
+uint8_t gb_water_me = 0;
 
 void splash(void)
 {
@@ -28,6 +30,7 @@ void init(void)
 	adc_init(GPIOA, 7); //B11
 
 	//init timer
+	init_TIM2(WATER_PERIOD);
 	init_TIM14(2);
 
 	progress_bar[0] = '[';
@@ -68,6 +71,28 @@ uint8_t is_enough_sun(uint8_t adc_value)
 		return 0;
 }
 
+void check_water(void)
+{
+	if (gb_water_me == 1)
+	{
+		led_heartbeat(GPIOB, 1);
+	}
+}
+
+void TIM2_IRQHandler(void)
+{
+	if (g_water_level == 0)
+	{
+		gb_water_me = 1;
+	}
+	else
+	{
+		g_water_level--;
+	}
+
+	//ack interrupt
+	TIM2->SR &= ~TIM_SR_UIF;
+}
 
 void TIM14_IRQHandler(void)
 {
@@ -84,6 +109,18 @@ void TIM14_IRQHandler(void)
 
 void EXTI0_1_IRQHandler(void)
 {
-	GPIOB->ODR = (uint8_t)(((float)sunlight/SUN_PER_DAY)*8);
+	delay(100);
+
+	if ((GPIOA->IDR & GPIO_IDR_0) == 0)
+	{
+		GPIOB->ODR = (uint8_t)(((float)sunlight/SUN_PER_DAY)*8);
+	}
+	else if ((GPIOA->IDR & GPIO_IDR_1) == 0)
+	{
+		led_heartbeat(GPIOB, 1);
+		g_water_level = MAX_WATER_LEVEL;
+		gb_water_me = 0;
+	}
+
 	EXTI->PR |= EXTI_PR_PR1;
 }
